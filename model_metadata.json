@@ -1,0 +1,1 @@
+{"best_k": 4, "test_accuracy": 0.989247311827957, "train_accuracy": 1.0, "input_features": ["jurusan", "mapel1", "mapel2", "skill_teknis", "sertifikasi", "proyek", "durasi_hari"], "target_feature": "divisi"}
