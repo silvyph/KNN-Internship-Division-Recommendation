@@ -1,28 +1,51 @@
-# KNN-Internship-Division-Recommendation
-This project implements a machine learning model using the K-Nearest Neighbor (KNN) algorithm to recommend the most suitable internship division for students based on their profile.  The system was developed as part of an undergraduate thesis titled:
+# 🤖 KNN Internship Division Recommendation API
+
+This project implements a Machine Learning model using the **K-Nearest Neighbor (KNN)** algorithm to recommend the most suitable internship division for students based on their profile.
+
+It is developed as part of an undergraduate thesis:
 
 **"Pengembangan Sistem Informasi Administrasi Magang Berbasis Web dengan Penerapan Algoritma K-Nearest Neighbor (KNN) untuk Rekomendasi Divisi Magang."**
 
 ---
 
-# Project Overview
+## 📌 Overview
 
-The goal of this project is to assist the internship administration process by providing **automatic recommendations of internship divisions** based on historical internship data.
+This system provides **automatic internship division recommendations** based on historical internship data and student attributes.
 
-The model analyzes several student attributes such as:
-
-* Academic background
-* Skills
-* Interests
-* Previous internship patterns
-
-and predicts the most suitable division using the **K-Nearest Neighbor classification algorithm**.
+The model is deployed as a **REST API using Flask**, allowing integration with external backend systems such as Laravel.
 
 ---
 
-# Dataset
+## 🔄 System Integration
 
-The dataset used in this project contains internship participant records including:
+This machine learning model is designed to be part of a larger system:
+
+* Laravel-based web application (frontend + backend)
+* Python Flask API (machine learning service)
+
+### Flow:
+
+1. User inputs internship data in web system (Laravel)
+2. Backend sends request to ML API (`/predict`)
+3. ML API processes data using KNN model
+4. API returns recommended division
+5. Result is displayed to user
+
+---
+
+## 🚀 Features
+
+* KNN-based classification model
+* REST API for prediction
+* Input validation & preprocessing
+* Confidence score output
+* Integration-ready architecture
+
+---
+
+## 📊 Dataset
+
+The dataset contains internship participant records:
 
 | Feature | Description                |
 | ------- | -------------------------- |
@@ -32,87 +55,104 @@ The dataset used in this project contains internship participant records includi
 | IPK     | GPA                        |
 | Divisi  | Target internship division |
 
-File:
-
-```
-dataset/dataset_magang.csv
-```
-
 ---
 
-# Machine Learning Pipeline
+## ⚙️ Machine Learning Pipeline
 
 1. Data preprocessing
 2. Feature encoding
 3. Model training using KNN
-4. Model serialization using Pickle
+4. Model serialization (Pickle)
 5. Prediction via API
 
 ---
 
-# Result
+## 🔌 API Endpoint
 
-The implemented KNN model successfully generates internship division recommendations based on student attributes such as major, skills, and interests. The model was trained using historical internship data and deployed using a lightweight API for prediction. The system demonstrates how machine learning can assist administrative decision-making in internship placement.
-
----
-
-# Model Files
-
-The trained model and preprocessing objects are stored as serialized files:
+### 🔹 Health Check
 
 ```
-model/model_knn.pkl
-model/preprocessor.pkl
-model/label_encoder.pkl
-model/le_divisi.pkl
+GET /health
 ```
 
-These files allow the model to be reused without retraining.
-
----
-
-# Project Structure
+### 🔹 Predict Recommendation
 
 ```
-dataset/      -> dataset used for training
-model/        -> trained machine learning model
-src/          -> source code for model and API
-config/       -> feature metadata and configuration
+POST /predict
 ```
 
 ---
 
-# Technologies Used
+## 📥 Example Request
+
+```json
+{
+  "jurusan": "informatika",
+  "mapel1": "matematika",
+  "mapel2": "pemrograman",
+  "skill_teknis": "python",
+  "sertifikasi": "data science",
+  "proyek": "machine learning",
+  "tanggal_mulai": "2025-01-01",
+  "tanggal_akhir": "2025-03-01"
+}
+```
+
+---
+
+## 📤 Example Response
+
+```json
+{
+  "success": true,
+  "predicted_divisi": "Data Analyst",
+  "confidence": 0.87
+}
+```
+
+---
+
+## 📸 API Preview
+
+![Prediction API](docs/predict-api.png)
+
+---
+
+## 📂 Project Structure
+
+```
+dataset/      -> dataset for training
+model/        -> trained ML model
+src/          -> API and model code
+config/       -> feature metadata
+```
+
+---
+
+## 🛠️ Technologies Used
 
 * Python
 * Scikit-learn
 * Pandas
 * NumPy
-* Pickle
-* JSON
+* Flask
+* Joblib
 
 ---
 
-# API Usage
+## 🎯 Result
 
-Prediction can be accessed through the API script:
-
-```
-python src/api_knn.py
-```
-
-The API will load the trained model and return internship division recommendations based on input features.
+The model successfully generates internship division recommendations and demonstrates how machine learning can support decision-making in internship placement systems.
 
 ---
 
-# Author
+## 👩‍💻 Author
 
 Silvy Putri Hanafi
-Informatics Engineering
-Undergraduate Thesis Project
+Informatics Engineering – Undergraduate Thesis Project
 
 ---
 
-# License
+## 📄 License
 
-This project is developed for academic and research purposes.
+For academic and research purposes.
