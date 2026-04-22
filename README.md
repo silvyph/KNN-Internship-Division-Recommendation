@@ -105,7 +105,7 @@ POST /predict
 ```json
 {
   "success": true,
-  "predicted_divisi": "Data Analyst",
+  "predicted_divisi": "aptika",
   "confidence": 0.87
 }
 ```
@@ -113,7 +113,7 @@ POST /predict
 ---
 
 ## 📸 API Preview
-
+This screenshot shows a successful prediction request to the Flask API, returning the recommended internship division along with confidence score.
 ![Prediction API](docs/predict-api.png)
 
 ---
@@ -139,7 +139,16 @@ config/       -> feature metadata
 * Joblib
 
 ---
+## 🧠 System Architecture
 
+- Laravel (Backend & Web System)
+- Flask (Machine Learning API)
+- KNN Model (Recommendation Engine)
+- MySQL (Database)
+
+Laravel communicates with the Flask API via HTTP request to generate real-time recommendations.
+
+---
 ## 🎯 Result
 
 The model successfully generates internship division recommendations and demonstrates how machine learning can support decision-making in internship placement systems.
