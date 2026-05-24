@@ -13,11 +13,11 @@ try:
     le_divisi = joblib.load('label_encoder.pkl')
     preprocessor = joblib.load('preprocessor.pkl')
     
-    print("✅ Model dan preprocessing loaded successfully!")
+    print("[OK] Model dan preprocessing loaded successfully!")
     print(f"   Model classes: {le_divisi.classes_}")
     
 except Exception as e:
-    print(f"❌ Error loading model: {e}")
+    print(f"[ERROR] Error loading model: {e}")
     print("Pastikan file berikut ada dan valid:")
     print("  - model_knn.pkl")
     print("  - label_encoder.pkl") 
@@ -36,7 +36,7 @@ def health_check():
 def predict():
     try:
         data = request.get_json()
-        print(f"🔧 Data received: {data}")
+        print(f"[DEBUG] Data received: {data}")
 
         # Validasi input wajib
         required_fields = ['jurusan', 'mapel1', 'mapel2', 'skill_teknis', 'sertifikasi', 'proyek', 'tanggal_mulai', 'tanggal_akhir']
@@ -82,14 +82,14 @@ def predict():
             'durasi_hari': [durasi_hari]
         })
 
-        print(f"📊 Input DataFrame:\n{input_df}")
+        print(f"[DATA] Input DataFrame:\n{input_df}")
 
         # Preprocessing
         try:
             X_processed = preprocessor.transform(input_df)
-            print(f"✅ Preprocessing successful. Shape: {X_processed.shape}")
+            print(f"[OK] Preprocessing successful. Shape: {X_processed.shape}")
         except Exception as e:
-            print(f"❌ Preprocessing error: {e}")
+            print(f"[ERROR] Preprocessing error: {e}")
             return jsonify({
                 "error": "Error dalam preprocessing data",
                 "details": str(e)
@@ -104,10 +104,10 @@ def predict():
             proba = knn.predict_proba(X_processed)[0]
             confidence = float(proba[y_pred])
             
-            print(f"🎯 Prediction: {divisi_pred} (confidence: {confidence:.3f})")
+            print(f"[PREDICT] Prediction: {divisi_pred} (confidence: {confidence:.3f})")
 
         except Exception as e:
-            print(f"❌ Prediction error: {e}")
+            print(f"[ERROR] Prediction error: {e}")
             return jsonify({
                 "error": "Error dalam melakukan prediksi",
                 "details": str(e)
@@ -130,16 +130,16 @@ def predict():
         })
 
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
+        print(f"[ERROR] Unexpected error: {e}")
         return jsonify({
             "error": "Terjadi kesalahan internal server",
             "details": str(e)
         }), 500
 
 if __name__ == '__main__':
-    print("🚀 Starting Flask server for KNN model...")
-    print("📡 API akan berjalan di http://127.0.0.1:5000")
-    print("📋 Endpoint: POST /predict")
-    print("💡 Pastikan model sudah di-training sebelum menggunakan API ini")
+    print("[START] Starting Flask server for KNN model...")
+    print("[API] API akan berjalan di http://127.0.0.1:5000")
+    print("[ENDPOINT] Endpoint: POST /predict")
+    print("[INFO] Pastikan model sudah di-training sebelum menggunakan API ini")
     
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
